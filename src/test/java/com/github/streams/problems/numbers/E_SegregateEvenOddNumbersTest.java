@@ -2,6 +2,9 @@ package com.github.streams.problems.numbers;
 
 import com.github.streams.solutions.GeneralNumbersProblemSolution;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -14,12 +17,12 @@ import org.junit.jupiter.api.Test;
  */
 class E_SegregateEvenOddNumbersTest {
   @Test
-  @Disabled
   void testSegregationOfEvenOddNumbersTest() {
-    final var input = IntStream.range(1, 50).boxed();
-    final var mySolution = GeneralNumbersProblemSolution.segregateEvenOddNumbers(input);
-    final var yourSolution = new ArrayList<>();
-
+    final var input = IntStream.range(1, 50).boxed().toList();
+    final var mySolution = GeneralNumbersProblemSolution.segregateEvenOddNumbers(input.stream());
+    final var yourSolution = input.stream().collect(Collectors.partitioningBy(x -> x % 2 == 0)).values().stream()
+            .flatMap(Collection::stream)
+            .toList();
     Assertions.assertEquals(mySolution, yourSolution);
   }
 }

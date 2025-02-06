@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 class D_RemoveDuplicationFromListTest {
 
   @Test
-  @Disabled
   void testRemoveDuplicationFromListTest() {
     final var input = DummyData.fakeListOfLongNumbers();
     var yourSolution = input.stream()
