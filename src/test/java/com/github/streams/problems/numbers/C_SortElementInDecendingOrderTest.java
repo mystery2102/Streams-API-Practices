@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 /*
  * Given a numeric array , re arrange the elements to form a highest possible value.
  * Input:  {1, 34, 3, 98, 9, 76, 45, 4};
@@ -15,11 +18,13 @@ import org.junit.jupiter.api.Test;
 class C_SortElementInDecendingOrderTest {
 
   @Test
-  @Disabled
   public void test() {
     var input = DummyData.fakeList();
     var mySolution = GeneralNumbersProblemSolution.getHighestPossibleValue(input);
-    var yourSolution = "";
+    var yourSolution = input.stream()
+            .map(String::valueOf)
+            .sorted(Comparator.reverseOrder())
+            .collect(Collectors.joining(""));
 
     Assertions.assertEquals(mySolution, yourSolution);
   }
