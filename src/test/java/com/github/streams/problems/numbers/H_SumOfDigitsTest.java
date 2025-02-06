@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.function.IntPredicate;
+import java.util.function.IntUnaryOperator;
+import java.util.function.Predicate;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 /**
  * Tests the sumOfDigits method in the GeneralNumbersProblemSolution class.
  *
@@ -19,11 +25,12 @@ import org.junit.jupiter.api.Test;
 class H_SumOfDigitsTest {
 
   @Test
-  @Disabled
   void testSumOfDigits() {
     final var input = DummyData.fakerNumber();
     var mySolution = GeneralNumbersProblemSolution.sumOfDigits(input);
-    var yourSolution = 2;
+    IntPredicate isDivisibleBy10 = num -> num > 0;
+    IntUnaryOperator divide10 = num -> num / 10;
+    var yourSolution = IntStream.iterate(input, isDivisibleBy10, divide10).map(x -> x % 10).sum();
 
     Assertions.assertEquals(mySolution, yourSolution);
   }
