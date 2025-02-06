@@ -6,14 +6,26 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.IntUnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 class I_ReverseANumberTest {
 
   @Test
-  @Disabled
-  static void reverseANumber() {
+  void reverseANumber() {
     final var input = DummyData.fakerNumber();
     var mySolution = GeneralNumbersProblemSolution.reverseANumber(input);
-    int yourSolution = 0;
+
+    var yourSolution = IntStream.iterate(input, x -> x > 0, x -> x / 10)
+                    .map(x -> x % 10)
+                            .reduce(0, (a,b) -> (a * 10) + b);
+
+
 
     Assertions.assertEquals(mySolution, yourSolution);
   }
